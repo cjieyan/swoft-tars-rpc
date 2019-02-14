@@ -55,7 +55,7 @@ class PackerMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $packer = App::getBean(TarsPacker::class);
-        $data   = $request->getAttribute(self::ATTRIBUTE_DATA);
+        $data   = $request->getAttribute(self::ATTRIBUTE_DATA);var_dump($data);
         $data   = $packer->unpack($data, 'tars');
 
         // init data and trigger event

@@ -2,8 +2,9 @@
 
 namespace Swoft\TarsRpc\Server\Command;
 
+use Swoft\App;
 use Swoft\Console\Bean\Annotation\Command;
-use Swoft\TarsRpc\Server\Rpc\RpcServer;
+use Swoft\TarsRpc\Server\Rpc\TarsRpcServer;
 
 /**
  * The group command list of rpc server
@@ -143,10 +144,10 @@ class TarsRpcCommand
     /**
      * @return RpcServer
      */
-    private function getRpcServer(): RpcServer
+    private function getRpcServer(): TarsRpcServer
     {
         $script = \input()->getScript();
-        $rpcServer = new RpcServer();
+        $rpcServer = new TarsRpcServer();
         $rpcServer->setScriptFile($script);
         
         return $rpcServer;
@@ -155,7 +156,7 @@ class TarsRpcCommand
     /**
      * @param RpcServer $rpcServer
      */
-    private function setStartArgs(RpcServer $rpcServer)
+    private function setStartArgs(TarsRpcServer $rpcServer)
     {
         if (\input()->getSameOpt(['d', 'daemon'], false)) {
             $rpcServer->setDaemonize();

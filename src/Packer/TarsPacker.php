@@ -1,7 +1,6 @@
 <?php
 namespace Swoft\TarsRpc\Server\Packer;
-use Swoft\TarsRpc\Packer\EofTrait;
-use Swoft\TarsRpc\Packer\PackerInterface;
+use Swoft\Rpc\Packer\PackerInterface;
 use Tars\client\RequestPacket;
 use Swoft\Bean\Annotation\Bean;
 
@@ -19,17 +18,19 @@ use Swoft\Bean\Annotation\Bean;
  */
 class TarsPacker implements PackerInterface
 {
-    use EofTrait;
     function pack($data)
     {
         // TODO: Implement pack() method.
+
         return $data;
     }
 
     function unpack($data)
     {
         // TODO: Implement unpack() method.
-        return \TUPAPI::decodeReqPacket($data);
+        $ret = \TUPAPI::decodeReqPacket($data);
+        var_dump($ret);
+        return $ret;
     }
 
 }

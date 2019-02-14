@@ -2,6 +2,7 @@
 
 namespace Swoft\TarsRpc\Server\Rpc;
 
+use Swoft\TarsRpc\Server\Bootstrap\Listeners\TarsRpcEventListener;
 use Swoft\App;
 use Swoft\Bean\Collector\SwooleListenerCollector;
 use Swoft\Bootstrap\SwooleEvent;
@@ -19,7 +20,7 @@ class TarsRpcServer extends AbstractServer
     public function start()
     {
         // add server type
-        $this->serverSetting['server_type'] = self::TYPE_RPC;
+        $this->serverSetting['server_type'] = "tars-rpc";
         $settings = App::getAppProperties()->get('server');
         $tars_settings = $settings['tcp-tars'];
         $this->server = new Server($tars_settings['host'], $tars_settings['port'], $tars_settings['mode'], $this->tcpSetting['type']);
@@ -50,7 +51,12 @@ class TarsRpcServer extends AbstractServer
     private function getSwooleEvents(): array
     {
         $swooleListeners = SwooleListenerCollector::getCollector();
-        $portEvents = $swooleListeners[SwooleEvent::TYPE_PORT][0] ?? [];
+        $portEvents = [
+            "receive"=> TarsRpcEventListener::class,
+            "connect"=> TarsRpcEventListener::class,
+            "close"=> TarsRpcEventListener::class,
+
+        ];
         $serverEvents = $swooleListeners[SwooleEvent::TYPE_SERVER] ?? [];
         return array_merge($portEvents, $serverEvents);
     }

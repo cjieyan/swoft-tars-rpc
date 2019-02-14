@@ -3,6 +3,7 @@
 namespace Swoft\TarsRpc\Server\Bootstrap\Listeners;
 
 use Swoft\App;
+use Swoft\Bean\Annotation\Bean;
 use Swoft\Bean\Annotation\SwooleListener;
 use Swoft\Bootstrap\Listeners\Interfaces\CloseInterface;
 use Swoft\Bootstrap\Listeners\Interfaces\ConnectInterface;
@@ -11,7 +12,7 @@ use Swoole\Server;
 use Swoft\Bootstrap\SwooleEvent;
 
 /**
- *
+ * @Bean("TarsRpcEventListener")
  * @SwooleListener({
  *     SwooleEvent::ON_RECEIVE,
  *     SwooleEvent::ON_CONNECT,
@@ -20,10 +21,10 @@ use Swoft\Bootstrap\SwooleEvent;
  *     type=SwooleEvent::TYPE_PORT
  * )
  */
-class RpcEventListener implements ReceiveInterface,ConnectInterface,CloseInterface
+class TarsRpcEventListener implements ReceiveInterface,ConnectInterface,CloseInterface
 {
     /**
-     * RPC 请求每次启动一个协程来处理
+     * TARS-RPC 请求每次启动一个协程来处理
      *
      * @param Server $server
      * @param int    $fd
