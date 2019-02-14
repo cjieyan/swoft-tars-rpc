@@ -25,7 +25,7 @@ class TarsRpcServer extends AbstractServer
         $this->server = new Server($tars_settings['host'], $tars_settings['port'], $tars_settings['mode'], $this->tcpSetting['type']);
 
         // Bind event callback
-        $listenSetting = $this->$tars_settings();
+        $listenSetting = $tars_settings;
         unset($listenSetting['host'], $listenSetting['port'], $listenSetting['mode'], $listenSetting['type']);
 
 

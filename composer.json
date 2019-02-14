@@ -17,10 +17,6 @@
     ],
     "license": "Apache-2.0",
     "require": {
-        "swoft/framework": "^1.0",
-        "swoft/console": "^1.0",
-        "swoft/http-message": "^1.0",
-        "psr/http-server-middleware": "^1.0"
     },
     "autoload": {
         "psr-4": {
