@@ -57,6 +57,7 @@ class TarsRpcServer extends AbstractServer
             "close"=> TarsRpcEventListener::class,
 
         ];
+        $swooleListeners['port'] = [$portEvents];
         $serverEvents = $swooleListeners[SwooleEvent::TYPE_SERVER] ?? [];
         return array_merge($portEvents, $serverEvents);
     }
