@@ -63,8 +63,8 @@ class ServiceDispatcher implements DispatcherInterface
             $data = $response->getAttribute(HandlerAdapter::ATTRIBUTE);
         } catch (\Throwable $t) {
             $message = sprintf('%s %s %s', $t->getMessage(), $t->getFile(), $t->getLine());
-            $data = ResponseHelper::formatData('', $message, $t->getCode());
-            $data  = App::getBean(TarsPacker::class)->pack($data, "tars");
+            $response = ResponseHelper::formatData('', $message, $t->getCode());
+            $data  = App::getBean(TarsPacker::class)->pack($response, "tars");//tars协议打包
         } finally {
             // Release system resources
             App::trigger(AppEvent::RESOURCE_RELEASE);

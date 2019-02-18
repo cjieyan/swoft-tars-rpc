@@ -69,8 +69,10 @@ class PackerMiddleware implements MiddlewareInterface
         /* @var \Swoft\TarsRpc\Server\Rpc\Response $response */
         $response      = $handler->handle($request);
         $serviceResult = $response->getAttribute(HandlerAdapter::ATTRIBUTE);
-        $serviceResult = $packer->pack($serviceResult, 'tars');
-
+        $pack_data['iVersion'] = $unpack_data['iVersion'];
+        $pack_data['iRequestId'] = $unpack_data['iRequestId'];
+        $pack_data['ret'] = $serviceResult;
+        $serviceResult = $packer->pack($pack_data, 'tars');
 
         return $response->withAttribute(HandlerAdapter::ATTRIBUTE, $serviceResult);
     }
