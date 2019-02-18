@@ -5,10 +5,10 @@
 # 如何使用
 在swoft项目中
 
-1.composer 安装包
+###1.composer 安装包
 composer require yancjie/tars-rpc dev-master
 
-2.
+###2.
 config\server.php添加配置
 'tcp-tars' => [
 
@@ -47,7 +47,8 @@ config\properties\app.php配置
  
 ]
 
-3.启动命令：
+
+###3.启动命令：
 
 bin/swoft start
 
@@ -58,6 +59,6 @@ bin/swoft start
 * TCP | host: 0.0.0.0, port: 9000, type: 1, worker: 1 (Enabled)
 
 
-4.demo，执行命令：
+###4.demo，执行命令：
 
 php test/tcp_tars.php
