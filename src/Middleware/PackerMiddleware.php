@@ -11,6 +11,8 @@ use Swoft\Http\Message\Middleware\MiddlewareInterface;
 use Swoft\TarsRpc\Server\Event\RpcServerEvent;
 use Swoft\TarsRpc\Server\Packer\TarsPacker;
 use Swoft\TarsRpc\Server\Router\HandlerAdapter;
+use Swoole\Coroutine;
+use Tars\client\TUPAPIWrapper;
 
 /**
  * service packer
@@ -55,9 +57,11 @@ class PackerMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $packer = App::getBean(TarsPacker::class);
-        $data   = $request->getAttribute(self::ATTRIBUTE_DATA);var_dump($data);
-        $data   = $packer->unpack($data, 'tars');
-
+        $tmp_data   = $request->getAttribute(self::ATTRIBUTE_DATA);
+        $unpack_data   = $packer->unpack($tmp_data, 'tars');
+        $pro_map = new \TARS_Map(\TARS::STRING, \TARS::STRING);
+        $data = TUPAPIWrapper::getMap('pro', 1,$pro_map, $unpack_data['sBuffer'], $unpack_data['iVersion']);
+        $data['params'] = json_decode($data['params'], true);
         // init data and trigger event
         App::trigger(RpcServerEvent::BEFORE_RECEIVE, null, $data);
         $request = $request->withAttribute(self::ATTRIBUTE_DATA, $data);
@@ -66,6 +70,7 @@ class PackerMiddleware implements MiddlewareInterface
         $response      = $handler->handle($request);
         $serviceResult = $response->getAttribute(HandlerAdapter::ATTRIBUTE);
         $serviceResult = $packer->pack($serviceResult, 'tars');
+
 
         return $response->withAttribute(HandlerAdapter::ATTRIBUTE, $serviceResult);
     }

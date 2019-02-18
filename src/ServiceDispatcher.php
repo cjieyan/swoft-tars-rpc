@@ -13,6 +13,7 @@ use Swoft\TarsRpc\Server\Middleware\PackerMiddleware;
 use Swoft\TarsRpc\Server\Middleware\RouterMiddleware;
 use Swoft\TarsRpc\Server\Middleware\UserMiddleware;
 use Swoft\TarsRpc\Server\Middleware\ValidatorMiddleware;
+use Swoft\TarsRpc\Server\Packer\TarsPacker;
 use Swoft\TarsRpc\Server\Router\HandlerAdapter;
 use Swoft\TarsRpc\Server\Rpc\Request;
 use Swoole\Server;
@@ -65,10 +66,8 @@ class ServiceDispatcher implements DispatcherInterface
             $data = ResponseHelper::formatData('', $message, $t->getCode());
             $data  = App::getBean(TarsPacker::class)->pack($data, "tars");
         } finally {
-
             // Release system resources
             App::trigger(AppEvent::RESOURCE_RELEASE);
-
             $server->send($fd, $data);
         }
         App::trigger(RpcServerEvent::AFTER_RECEIVE);

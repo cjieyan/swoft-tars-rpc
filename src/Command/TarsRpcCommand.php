@@ -45,7 +45,7 @@ class TarsRpcCommand
 
         // 信息面板
         $lines = [
-            '                    Information Panel                     ',
+            '                    TarsRpc Information Panel                     ',
             '*************************************************************',
             "* tcp | Host: <note>$tcpHost</note>, port: <note>$tcpPort</note>, mode: <note>$tcpMode</note>, type: <note>$tcpType</note>",
             '*************************************************************',
