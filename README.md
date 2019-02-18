@@ -8,8 +8,7 @@
 ### 1.composer 安装包
 composer require yancjie/tars-rpc dev-master
 
-### 2.
-config\server.php添加配置
+###  2.1 config\server.php添加配置
 
 'tcp-tars' => [
 
@@ -30,7 +29,9 @@ config\server.php添加配置
  'package_eof' => "\r\n",
  
 ],
-config\properties\app.php配置
+
+
+###  2.2 config\properties\app.php配置
 
 'bootScan' => [
 
