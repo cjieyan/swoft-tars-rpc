@@ -1,6 +1,9 @@
 # swoft-tars-rpc
 在swoft框架中遵循tars协议的rpc服务
 
+# 依赖tars打包解包的扩展，请自行编译安装
+
+    https://github.com/TarsPHP/tars-extension/tree/a58eca33a31f0d418401b71393a25b4e85d315bc
 
 # 如何使用
 在swoft项目中
