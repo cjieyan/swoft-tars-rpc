@@ -8,6 +8,8 @@
 ### 1.composer 安装包
 composer require yancjie/tars-rpc dev-master
 
+###  2.0 将composer安装包中的test/TarsServerListener.php 文件放入项目文件中app\Boot
+
 ###  2.1 config\server.php添加配置
 
     'tcp-tars' => [
