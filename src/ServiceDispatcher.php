@@ -62,7 +62,7 @@ class ServiceDispatcher implements DispatcherInterface
             $response = $requestHandler->handle($serviceRequest);
             $data = $response->getAttribute(HandlerAdapter::ATTRIBUTE);
         } catch (\Throwable $t) {
-            $message = sprintf('%s %s %s', $t->getMessage());
+            $message = sprintf('%s', $t->getMessage());
             App::error("tars tcp dispatch error", [$t->getMessage(), $t->getFile(), $t->getLine()]);
             $ret = ResponseHelper::formatData('', $message, $t->getCode());
             $response['ret'] = $ret;
