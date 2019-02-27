@@ -34,9 +34,12 @@ class TarsRpcCommand
 
         // 选项参数解析
         $this->setStartArgs($rpcServer);
-        //$tcpStatus = $rpcServer->getTcpSetting();
-        $tcpStatus = App::getAppProperties()->get('server')['tcp-tars'];
-
+        $conf = App::getAppProperties()->get('server');
+        if(empty($conf) || empty($conf['tcp-tars'])){
+            \output()->writeln("<error>tcp-tars config does not exist !!! )</error>", true, true);
+            return;
+        }
+        $tcpStatus = $conf['tcp-tars'];
         // tcp启动参数
         $tcpHost = $tcpStatus['host'];
         $tcpPort = $tcpStatus['port'];
@@ -47,7 +50,7 @@ class TarsRpcCommand
         $lines = [
             '                    TarsRpc Information Panel                     ',
             '*************************************************************',
-            "* tcp | Host: <note>$tcpHost</note>, port: <note>$tcpPort</note>, mode: <note>$tcpMode</note>, type: <note>$tcpType</note>",
+            "* TARS| Host: <note>$tcpHost</note>, port: <note>$tcpPort</note>, mode: <note>$tcpMode</note>, type: <note>$tcpType</note>",
             '*************************************************************',
         ];
         \output()->writeln(implode("\n", $lines));
