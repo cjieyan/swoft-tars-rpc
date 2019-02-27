@@ -3,16 +3,14 @@ include dirname(__FILE__) . "/lib/tars.php";
 $version = 1;
 $requestPacket = new RequestPacket();
 $requestPacket->_iVersion = $version;
-$requestPacket->_funcName = "";
-$requestPacket->_servantName = "";
+$requestPacket->_funcName = "getUsers";
+$requestPacket->_servantName = "App\Lib\DemoInterface";
 
 
 //封装请求参数
 $uid = 1000;
 $pro = [
-    'interface' => "App\Lib\DemoInterface",
     'version'   => "1.0.1",
-    'method'    => "getUsers",
     'params'    => json_encode([[$uid]], true),
     'logid'     => uniqid(),
     'spanid'    => "0",

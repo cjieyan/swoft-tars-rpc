@@ -33,11 +33,13 @@ class TarsPacker implements PackerInterface
     {
         $ret_data = $pack_data['ret'];
         $ret_map = new \TARS_Map(\TARS::STRING, \TARS::STRING);
-        foreach ($ret_data['data'] as $key => $value) {
-            if(is_array($value)){
-                $value = json_encode($value);
+        if(is_array($ret_data) && !empty($ret_data['data']) ) {
+            foreach ($ret_data['data'] as $key => $value) {
+                if (is_array($value)) {
+                    $value = json_encode($value);
+                }
+                $ret_map->pushBack([$key => $value]);
             }
-            $ret_map->pushBack([$key => $value]);
         }
         $__buffer[] = TUPAPIWrapper::putMap('data', 1, $ret_map, $pack_data['iVersion']);
         $__buffer[] = TUPAPIWrapper::putInt32('status', 2, $ret_data['status'], $pack_data['iVersion']);

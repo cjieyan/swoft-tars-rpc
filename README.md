@@ -32,11 +32,7 @@ composer require yancjie/tars-rpc dev-master
 
     'bootScan' => [
         ....
-        'Swoft\TarsRpc\Server\Command',
-        'Swoft\TarsRpc\Server\Bootstrap',
-        'Swoft\TarsRpc\Server\Packer',
-        'Swoft\TarsRpc\Server\Middleware',
-        'Swoft\TarsRpc\Server\Validator',
+        'Swoft\\TarsRpc\\Server\\'
     ]
 
 

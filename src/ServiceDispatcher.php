@@ -62,8 +62,12 @@ class ServiceDispatcher implements DispatcherInterface
             $response = $requestHandler->handle($serviceRequest);
             $data = $response->getAttribute(HandlerAdapter::ATTRIBUTE);
         } catch (\Throwable $t) {
-            $message = sprintf('%s %s %s', $t->getMessage(), $t->getFile(), $t->getLine());
-            $response = ResponseHelper::formatData('', $message, $t->getCode());
+            $message = sprintf('%s %s %s', $t->getMessage());
+            App::error("tars tcp dispatch error", [$t->getMessage(), $t->getFile(), $t->getLine()]);
+            $ret = ResponseHelper::formatData('', $message, $t->getCode());
+            $response['ret'] = $ret;
+            $response['iVersion'] = 1;
+            $response['iRequestId'] = 1;
             $data  = App::getBean(TarsPacker::class)->pack($response, "tars");//tars协议打包
         } finally {
             // Release system resources

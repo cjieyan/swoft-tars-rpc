@@ -61,6 +61,8 @@ class PackerMiddleware implements MiddlewareInterface
         $unpack_data   = $packer->unpack($tmp_data, 'tars');
         $pro_map = new \TARS_Map(\TARS::STRING, \TARS::STRING);
         $data = TUPAPIWrapper::getMap('pro', 1,$pro_map, $unpack_data['sBuffer'], $unpack_data['iVersion']);
+        $data['interface'] = $unpack_data['sServantName'];
+        $data['method']    = $unpack_data['sFuncName'];
         $data['params'] = json_decode($data['params'], true);
         // init data and trigger event
         App::trigger(RpcServerEvent::BEFORE_RECEIVE, null, $data);
